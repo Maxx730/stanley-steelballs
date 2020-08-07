@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/leahFat.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/leahFat-small.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/leahFat-medium.tres" type="DynamicFont" id=3]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float SWAY_SPEED = 10.0;
+uniform float SWAY_SPREAD = 5.0;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV, 0.0);
+}
+
+void vertex() {
+	VERTEX.y += sin(TIME * SWAY_SPEED) * SWAY_SPREAD;
+}"
+custom_defines = ""
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/SWAY_SPEED = 4.0
+shader_param/SWAY_SPREAD = 4.0
+
+[node name="startmenu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="main" type="VBoxContainer" parent="."]
+margin_right = 512.0
+margin_bottom = 288.0
+
+[node name="title" type="Label" parent="main"]
+material = SubResource( 2 )
+margin_right = 512.0
+margin_bottom = 127.0
+size_flags_vertical = 7
+custom_fonts/font = ExtResource( 1 )
+text = "GAME TITLE"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main"]
+margin_top = 131.0
+margin_right = 512.0
+margin_bottom = 258.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="main/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 127.0
+size_flags_horizontal = 3
+
+[node name="options" type="VBoxContainer" parent="main/HBoxContainer"]
+margin_left = 172.0
+margin_right = 340.0
+margin_bottom = 127.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="play-button" type="Button" parent="main/HBoxContainer/options"]
+margin_right = 168.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 3 )
+text = "PLAY"
+
+[node name="settings-button" type="Button" parent="main/HBoxContainer/options"]
+margin_top = 38.0
+margin_right = 168.0
+margin_bottom = 66.0
+custom_fonts/font = ExtResource( 3 )
+text = "SETTINGS"
+
+[node name="MarginContainer" type="MarginContainer" parent="main/HBoxContainer"]
+margin_left = 344.0
+margin_right = 512.0
+margin_bottom = 127.0
+size_flags_horizontal = 3
+
+[node name="credits-container" type="VBoxContainer" parent="main"]
+margin_top = 262.0
+margin_right = 512.0
+margin_bottom = 288.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="credits" type="Label" parent="main/credits-container"]
+margin_top = 6.0
+margin_right = 512.0
+margin_bottom = 20.0
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 2 )
+text = "SQUID STUDIOS 2020"
+align = 1
+valign = 1

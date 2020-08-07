@@ -1,0 +1,126 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sprites/9-patch-progress-fill.png" type="Texture" id=1]
+[ext_resource path="res://fonts/leahFat.tres" type="DynamicFont" id=2]
+
+[node name="gameplay_menu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vertical_container" type="VBoxContainer" parent="."]
+margin_right = 512.0
+margin_bottom = 288.0
+
+[node name="top_margin" type="MarginContainer" parent="vertical_container"]
+margin_right = 512.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="horizontal_container" type="HBoxContainer" parent="vertical_container"]
+margin_top = 74.0
+margin_right = 512.0
+margin_bottom = 214.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="left_margin" type="MarginContainer" parent="vertical_container/horizontal_container"]
+margin_right = 126.0
+margin_bottom = 140.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="menu" type="NinePatchRect" parent="vertical_container/horizontal_container"]
+margin_left = 130.0
+margin_right = 382.0
+margin_bottom = 140.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="ver_container" type="VBoxContainer" parent="vertical_container/horizontal_container/menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="vertical_container/horizontal_container/menu/ver_container"]
+margin_right = 232.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "PAUSED"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="vertical_container/horizontal_container/menu/ver_container"]
+margin_top = 26.0
+margin_right = 232.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="menu_buttons" type="HBoxContainer" parent="vertical_container/horizontal_container/menu/ver_container"]
+margin_top = 92.0
+margin_right = 232.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+
+[node name="resume" type="Button" parent="vertical_container/horizontal_container/menu/ver_container/menu_buttons" groups=[
+"menu_button",
+]]
+margin_right = 114.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "RESUME"
+flat = true
+
+[node name="quit" type="Button" parent="vertical_container/horizontal_container/menu/ver_container/menu_buttons" groups=[
+"menu_button",
+]]
+margin_left = 118.0
+margin_right = 232.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "QUIT"
+flat = true
+
+[node name="right_margin" type="MarginContainer" parent="vertical_container/horizontal_container"]
+margin_left = 386.0
+margin_right = 512.0
+margin_bottom = 140.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="bottom_margin" type="MarginContainer" parent="vertical_container"]
+margin_top = 218.0
+margin_right = 512.0
+margin_bottom = 288.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5

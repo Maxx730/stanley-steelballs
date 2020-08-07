@@ -1,0 +1,246 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://sprites/9-patch-progress-frame.png" type="Texture" id=1]
+[ext_resource path="res://sprites/9-patch-progress-fill.png" type="Texture" id=2]
+[ext_resource path="res://fonts/leahFat.tres" type="DynamicFont" id=3]
+[ext_resource path="res://sprites/token.png" type="Texture" id=4]
+
+[node name="GUI" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 492.0
+margin_bottom = 278.0
+size_flags_horizontal = 3
+
+[node name="info" type="VBoxContainer" parent="VBoxContainer"]
+margin_right = 472.0
+margin_bottom = 125.0
+custom_constants/separation = 15
+
+[node name="debug_container" type="HBoxContainer" parent="VBoxContainer/info"]
+margin_right = 472.0
+margin_bottom = 88.0
+
+[node name="position" type="VBoxContainer" parent="VBoxContainer/info/debug_container"]
+margin_right = 234.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="VBoxContainer/info/debug_container/position"]
+margin_right = 234.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "-- POSITION --"
+
+[node name="values" type="HBoxContainer" parent="VBoxContainer/info/debug_container/position"]
+margin_top = 26.0
+margin_right = 234.0
+margin_bottom = 48.0
+custom_constants/separation = 10
+
+[node name="xpos" type="Label" parent="VBoxContainer/info/debug_container/position/values" groups=[
+"gui_label",
+]]
+margin_right = 48.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "XPOS"
+
+[node name="ypos" type="Label" parent="VBoxContainer/info/debug_container/position/values" groups=[
+"gui_label",
+]]
+margin_left = 58.0
+margin_right = 106.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "YPOS"
+
+[node name="reset_zoom" type="HBoxContainer" parent="VBoxContainer/info/debug_container/position"]
+margin_top = 52.0
+margin_right = 234.0
+margin_bottom = 72.0
+
+[node name="reset_button" type="Button" parent="VBoxContainer/info/debug_container/position/reset_zoom" groups=[
+"reset_button",
+]]
+margin_right = 48.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+text = "Reset"
+
+[node name="zoom_in" type="Button" parent="VBoxContainer/info/debug_container/position/reset_zoom" groups=[
+"zoom_button",
+]]
+margin_left = 52.0
+margin_right = 72.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="zoom_out" type="Button" parent="VBoxContainer/info/debug_container/position/reset_zoom" groups=[
+"zoom_button",
+]]
+margin_left = 76.0
+margin_right = 93.0
+margin_bottom = 20.0
+text = "-"
+
+[node name="debug_sliders" type="VBoxContainer" parent="VBoxContainer/info/debug_container"]
+margin_left = 238.0
+margin_right = 472.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+
+[node name="container-grav" type="VBoxContainer" parent="VBoxContainer/info/debug_container/debug_sliders"]
+margin_right = 234.0
+margin_bottom = 42.0
+
+[node name="label" type="Label" parent="VBoxContainer/info/debug_container/debug_sliders/container-grav" groups=[
+"debug_label",
+]]
+margin_right = 234.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "GRAVITY ::: "
+
+[node name="slider" type="HSlider" parent="VBoxContainer/info/debug_container/debug_sliders/container-grav" groups=[
+"gui_slider",
+]]
+margin_top = 26.0
+margin_right = 234.0
+margin_bottom = 42.0
+
+[node name="container-speed" type="VBoxContainer" parent="VBoxContainer/info/debug_container/debug_sliders"]
+margin_top = 46.0
+margin_right = 234.0
+margin_bottom = 88.0
+
+[node name="label" type="Label" parent="VBoxContainer/info/debug_container/debug_sliders/container-speed" groups=[
+"debug_label",
+]]
+margin_right = 234.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "MAX SPEED ::: "
+
+[node name="slider" type="HSlider" parent="VBoxContainer/info/debug_container/debug_sliders/container-speed" groups=[
+"gui_slider",
+]]
+margin_top = 26.0
+margin_right = 234.0
+margin_bottom = 42.0
+max_value = 5000.0
+
+[node name="stats_container" type="VBoxContainer" parent="VBoxContainer/info"]
+margin_top = 103.0
+margin_right = 472.0
+margin_bottom = 125.0
+
+[node name="stats" type="HBoxContainer" parent="VBoxContainer/info/stats_container"]
+margin_right = 472.0
+margin_bottom = 22.0
+custom_constants/separation = 50
+
+[node name="speed" type="Label" parent="VBoxContainer/info/stats_container/stats" groups=[
+"gui_label",
+]]
+margin_right = 92.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "0000 MPH"
+
+[node name="distance" type="Label" parent="VBoxContainer/info/stats_container/stats"]
+margin_left = 142.0
+margin_right = 300.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "DISTANCE ::: 000"
+
+[node name="middle" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 129.0
+margin_right = 472.0
+margin_bottom = 204.0
+size_flags_vertical = 3
+
+[node name="bottom" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 208.0
+margin_right = 472.0
+margin_bottom = 258.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="controls" type="HBoxContainer" parent="VBoxContainer/bottom"]
+margin_right = 472.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="power_ui" type="VBoxContainer" parent="VBoxContainer/bottom/controls"]
+margin_right = 147.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="power_meter" type="TextureProgress" parent="VBoxContainer/bottom/controls/power_ui" groups=[
+"power_bar",
+]]
+margin_right = 147.0
+margin_bottom = 32.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/bottom/controls"]
+margin_left = 151.0
+margin_right = 396.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/bottom/controls"]
+margin_left = 400.0
+margin_right = 472.0
+margin_bottom = 50.0
+
+[node name="token-container" type="HBoxContainer" parent="VBoxContainer/bottom/controls/VBoxContainer"]
+margin_right = 72.0
+margin_bottom = 24.0
+custom_constants/separation = 10
+
+[node name="token-icon" type="TextureRect" parent="VBoxContainer/bottom/controls/VBoxContainer/token-container"]
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 4 )
+
+[node name="token-label" type="Label" parent="VBoxContainer/bottom/controls/VBoxContainer/token-container" groups=[
+"gui_label",
+]]
+margin_left = 34.0
+margin_top = 1.0
+margin_right = 66.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 3 )
+text = "X 0"
+valign = 1
+
+[node name="distance_score" type="Label" parent="VBoxContainer/bottom/controls/VBoxContainer" groups=[
+"gui_label",
+]]
+margin_top = 28.0
+margin_right = 72.0
+margin_bottom = 50.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+text = "000000"
+align = 2
+valign = 2
