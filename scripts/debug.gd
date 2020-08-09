@@ -50,7 +50,7 @@ func _ready():
 	randomize()
 	
 	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-1.tscn'))
-	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-2.tscn'))
+	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-2.tscn'))
 	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-3.tscn'))
 	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-4.tscn'))
 	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-6.tscn'))
@@ -64,8 +64,6 @@ func _ready():
 	Y_LABEL = labels[1]
 	SCORE_LABEL = labels[4]
 	COIN_LABEL = labels[3]
-	
-	print(String(labels))
 	
 	GAMEPLAY_MENU = get_parent().get_node("gui_canvas/gameplay_menu")
 	if GAMEPLAY_MENU:

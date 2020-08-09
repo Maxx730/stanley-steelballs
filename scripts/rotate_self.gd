@@ -9,4 +9,5 @@ func _ready():
 	
 func _physics_process(delta):
 	if PARENT:
-		get_parent().rotate(ROTATION_SPEED)
+		#get_parent().rotate(ROTATION_SPEED)
+		pass

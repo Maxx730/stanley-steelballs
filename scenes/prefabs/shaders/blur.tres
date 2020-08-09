@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float blur_amount = 3;
+
+void fragment() {
+	//vec2 tiled;
+	//vec2 offset;
+	//offset.x = cos(TIME) * 2.0;
+	//offset.y = sin(TIME) * 2.0;
+	//tiled = SCREEN_UV * vec2(5.0, 5.0);
+	//vec2 waves;
+	//waves.x = cos(TIME + tiled.x + tiled.y);
+	//waves.y = sin(TIME + tiled.x + tiled.y);
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount).rgb;
+	//COLOR = vec4(waves, 0.0, 1.0);
+	//COLOR = texture(SCREEN_TEXTURE, waves + offset);
+}"
+custom_defines = ""
+
+[resource]
+shader = SubResource( 1 )
+shader_param/blur_amount = 3.0
