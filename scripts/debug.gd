@@ -31,6 +31,7 @@ var GAMEPLAY_MENU = null
 var PAUSE_SHADER = null
 var RESUME_BUTTON = null
 var COIN_LABEL = null
+var QUIT_BUTTON = null
 
 #DEBUG ELS
 var GRAVITY_LABEL = null
@@ -71,6 +72,9 @@ func _ready():
 		if menu_buttons:
 			RESUME_BUTTON = menu_buttons[0]
 			RESUME_BUTTON.connect('pressed', self, '_toggle_pause')
+			QUIT_BUTTON = menu_buttons[1]
+			QUIT_BUTTON.connect('pressed', self, '_load_main')
+			
 	
 	#get the power meter
 	var meters = get_tree().get_nodes_in_group('power_bar')
@@ -242,3 +246,6 @@ func _handle_inputs():
 func _add_coins(value):
 	COINS += value
 	COIN_LABEL.text = 'X ' + String(COINS)
+
+func _load_main():
+	get_tree().change_scene('res://scenes/screens/start.tscn')
