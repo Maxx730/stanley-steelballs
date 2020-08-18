@@ -15,6 +15,7 @@ var PAUSED = true
 var LAST_POS = null
 var POINT_DIVISOR = 10
 var COINS = 0
+var CURRENT_BOOSTER = null
 
 #power meter
 var CURRENT_VAL = 0
@@ -32,6 +33,10 @@ var PAUSE_SHADER = null
 var RESUME_BUTTON = null
 var COIN_LABEL = null
 var QUIT_BUTTON = null
+var TAP_BOOST = null
+var BOOST_BTN = null
+var END_RUN_GUI = null
+
 
 #DEBUG ELS
 var GRAVITY_LABEL = null
@@ -65,6 +70,20 @@ func _ready():
 	Y_LABEL = labels[1]
 	SCORE_LABEL = labels[4]
 	COIN_LABEL = labels[3]
+	
+	var taps = get_tree().get_nodes_in_group('tap_boost')
+	if taps:
+		TAP_BOOST = taps[0]
+		TAP_BOOST.visible = false
+	
+	var boost_btns = get_tree().get_nodes_in_group('boost_button')
+	if boost_btns:
+		BOOST_BTN = boost_btns[0]
+		BOOST_BTN.visible = false
+	
+	END_RUN_GUI = get_parent().get_node("gui_canvas/end_run_menu")
+	if END_RUN_GUI:
+		END_RUN_GUI.visible = false
 	
 	GAMEPLAY_MENU = get_parent().get_node("gui_canvas/gameplay_menu")
 	if GAMEPLAY_MENU:
@@ -104,6 +123,8 @@ func _ready():
 	
 	PINBALL.connect('_on_points_gained', self, '_add_points')
 	PINBALL.connect('_on_coins_gained', self, '_add_coins')
+	PINBALL.connect('_on_booster_entered', self, '_toggle_boost_tap')
+	PINBALL.connect('_on_booster_exit', self, '_booster_exit')
 	
 	_get_debug_gui()
 	
@@ -172,10 +193,11 @@ func _reset_tracks():
 			pass
 		
 func _check_speed():
-	if PINBALL.CURRENT_SPEED < 0:
-		PINBALL.global_position = Vector2(0, 0)
-		PINBALL.CURRENT_SPEED = PINBALL.MAX_SPEED
-		_reset_tracks()
+	if PINBALL.VELOCITY.x < 0:
+		#PINBALL.global_position = Vector2(0, 0)
+		if END_RUN_GUI:
+			PINBALL.VELOCITY.x = 0
+			END_RUN_GUI.visible = true
 
 func _get_debug_gui():
 	var labels = get_tree().get_nodes_in_group('debug_label')
@@ -209,6 +231,7 @@ func _get_debug_gui():
 		
 		ZOOM_IN.connect('pressed', self, '_zoom_in')
 		ZOOM_OUT.connect('pressed', self, '_zoom_out')
+		BOOST_BTN.connect('pressed', self, '_boost_player')
 
 func _on_gravity_changed(value):
 	if GRAVITY_LABEL && PINBALL:
@@ -249,3 +272,21 @@ func _add_coins(value):
 
 func _load_main():
 	get_tree().change_scene('res://scenes/screens/start.tscn')
+
+func _toggle_boost_tap(booster):
+	if TAP_BOOST:
+		TAP_BOOST.visible = !TAP_BOOST.visible
+		BOOST_BTN.visible = !BOOST_BTN.visible
+		CURRENT_BOOSTER = booster
+
+func _booster_exit(booster):
+	TAP_BOOST.visible = !TAP_BOOST.visible
+	BOOST_BTN.visible = !BOOST_BTN.visible
+	CURRENT_BOOSTER = null
+
+func _boost_player():
+	if PINBALL:
+		PINBALL.VELOCITY.x += 100
+		PINBALL.VELOCITY.y -= 100
+		PINBALL.BOOST_PART.emitting = true
+		CURRENT_BOOSTER.queue_free()

@@ -1,52 +1,61 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://sprites/9-patch-progress-frame.png" type="Texture" id=1]
 [ext_resource path="res://sprites/9-patch-progress-fill.png" type="Texture" id=2]
+[ext_resource path="res://sprites/tap-to-boost.png" type="Texture" id=3]
 [ext_resource path="res://sprites/token.png" type="Texture" id=4]
 [ext_resource path="res://fonts/leahFat-medium.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 1, 1, 0.121569 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-size_flags_vertical = 3
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 10
+margin_right = -1.0
+margin_bottom = -1.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 492.0
-margin_bottom = 278.0
-size_flags_horizontal = 3
+margin_right = 511.0
+margin_bottom = 287.0
 
 [node name="info" type="VBoxContainer" parent="VBoxContainer"]
-margin_right = 472.0
+visible = false
+margin_right = 511.0
 margin_bottom = 125.0
 custom_constants/separation = 15
 
 [node name="debug_container" type="HBoxContainer" parent="VBoxContainer/info"]
-margin_right = 472.0
+margin_right = 511.0
 margin_bottom = 88.0
 
 [node name="position" type="VBoxContainer" parent="VBoxContainer/info/debug_container"]
-margin_right = 234.0
+margin_right = 253.0
 margin_bottom = 88.0
 size_flags_horizontal = 3
 
 [node name="label" type="Label" parent="VBoxContainer/info/debug_container/position"]
-margin_right = 234.0
+margin_right = 253.0
 margin_bottom = 22.0
 custom_fonts/font = ExtResource( 5 )
 text = "-- POSITION --"
 
 [node name="values" type="HBoxContainer" parent="VBoxContainer/info/debug_container/position"]
 margin_top = 26.0
-margin_right = 234.0
+margin_right = 253.0
 margin_bottom = 48.0
 custom_constants/separation = 10
 
@@ -69,7 +78,7 @@ text = "YPOS"
 
 [node name="reset_zoom" type="HBoxContainer" parent="VBoxContainer/info/debug_container/position"]
 margin_top = 52.0
-margin_right = 234.0
+margin_right = 253.0
 margin_bottom = 72.0
 
 [node name="reset_button" type="Button" parent="VBoxContainer/info/debug_container/position/reset_zoom" groups=[
@@ -97,19 +106,19 @@ margin_bottom = 20.0
 text = "-"
 
 [node name="debug_sliders" type="VBoxContainer" parent="VBoxContainer/info/debug_container"]
-margin_left = 238.0
-margin_right = 472.0
+margin_left = 257.0
+margin_right = 511.0
 margin_bottom = 88.0
 size_flags_horizontal = 3
 
 [node name="container-grav" type="VBoxContainer" parent="VBoxContainer/info/debug_container/debug_sliders"]
-margin_right = 234.0
+margin_right = 254.0
 margin_bottom = 42.0
 
 [node name="label" type="Label" parent="VBoxContainer/info/debug_container/debug_sliders/container-grav" groups=[
 "debug_label",
 ]]
-margin_right = 234.0
+margin_right = 254.0
 margin_bottom = 22.0
 custom_fonts/font = ExtResource( 5 )
 text = "GRAVITY ::: "
@@ -118,18 +127,18 @@ text = "GRAVITY ::: "
 "gui_slider",
 ]]
 margin_top = 26.0
-margin_right = 234.0
+margin_right = 254.0
 margin_bottom = 42.0
 
 [node name="container-speed" type="VBoxContainer" parent="VBoxContainer/info/debug_container/debug_sliders"]
 margin_top = 46.0
-margin_right = 234.0
+margin_right = 254.0
 margin_bottom = 88.0
 
 [node name="label" type="Label" parent="VBoxContainer/info/debug_container/debug_sliders/container-speed" groups=[
 "debug_label",
 ]]
-margin_right = 234.0
+margin_right = 254.0
 margin_bottom = 22.0
 custom_fonts/font = ExtResource( 5 )
 text = "MAX SPEED ::: "
@@ -138,17 +147,17 @@ text = "MAX SPEED ::: "
 "gui_slider",
 ]]
 margin_top = 26.0
-margin_right = 234.0
+margin_right = 254.0
 margin_bottom = 42.0
 max_value = 5000.0
 
 [node name="stats_container" type="VBoxContainer" parent="VBoxContainer/info"]
 margin_top = 103.0
-margin_right = 472.0
+margin_right = 511.0
 margin_bottom = 125.0
 
 [node name="stats" type="HBoxContainer" parent="VBoxContainer/info/stats_container"]
-margin_right = 472.0
+margin_right = 511.0
 margin_bottom = 22.0
 custom_constants/separation = 50
 
@@ -168,61 +177,75 @@ custom_fonts/font = ExtResource( 5 )
 text = "DISTANCE ::: 000"
 
 [node name="middle" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 129.0
-margin_right = 472.0
-margin_bottom = 204.0
+margin_right = 511.0
+margin_bottom = 223.0
 size_flags_vertical = 3
 
-[node name="bottom" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 208.0
-margin_right = 472.0
-margin_bottom = 258.0
+[node name="bottom_margin" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 227.0
+margin_right = 511.0
+margin_bottom = 287.0
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+
+[node name="bottom" type="VBoxContainer" parent="VBoxContainer/bottom_margin"]
+margin_left = 20.0
+margin_right = 491.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 
-[node name="controls" type="HBoxContainer" parent="VBoxContainer/bottom"]
-margin_right = 472.0
+[node name="controls" type="HBoxContainer" parent="VBoxContainer/bottom_margin/bottom"]
+margin_right = 471.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="power_ui" type="VBoxContainer" parent="VBoxContainer/bottom/controls"]
-margin_right = 147.0
+[node name="power_ui" type="VBoxContainer" parent="VBoxContainer/bottom_margin/bottom/controls"]
+margin_right = 32.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.0
 
-[node name="power_meter" type="TextureProgress" parent="VBoxContainer/bottom/controls/power_ui" groups=[
+[node name="power_meter" type="TextureProgress" parent="VBoxContainer/bottom_margin/bottom/controls/power_ui" groups=[
 "power_bar",
 ]]
-margin_right = 147.0
+margin_right = 32.0
 margin_bottom = 32.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 2 )
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/bottom/controls"]
-margin_left = 151.0
-margin_right = 396.0
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/bottom_margin/bottom/controls"]
+margin_left = 101.0
+margin_right = 329.0
 margin_bottom = 50.0
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_stretch_ratio = 0.5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/bottom/controls"]
-margin_left = 400.0
-margin_right = 472.0
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/bottom_margin/bottom/controls/MarginContainer" groups=[
+"tap_boost",
+]]
+margin_right = 228.0
+margin_bottom = 50.0
+texture = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/bottom_margin/bottom/controls"]
+margin_left = 399.0
+margin_right = 471.0
 margin_bottom = 50.0
 
-[node name="token-container" type="HBoxContainer" parent="VBoxContainer/bottom/controls/VBoxContainer"]
+[node name="token-container" type="HBoxContainer" parent="VBoxContainer/bottom_margin/bottom/controls/VBoxContainer"]
 margin_right = 72.0
 margin_bottom = 24.0
 custom_constants/separation = 10
 
-[node name="token-icon" type="TextureRect" parent="VBoxContainer/bottom/controls/VBoxContainer/token-container"]
+[node name="token-icon" type="TextureRect" parent="VBoxContainer/bottom_margin/bottom/controls/VBoxContainer/token-container"]
 margin_right = 24.0
 margin_bottom = 24.0
 texture = ExtResource( 4 )
 
-[node name="token-label" type="Label" parent="VBoxContainer/bottom/controls/VBoxContainer/token-container" groups=[
+[node name="token-label" type="Label" parent="VBoxContainer/bottom_margin/bottom/controls/VBoxContainer/token-container" groups=[
 "gui_label",
 ]]
 margin_left = 34.0
@@ -233,7 +256,7 @@ custom_fonts/font = ExtResource( 5 )
 text = "X 0"
 valign = 1
 
-[node name="distance_score" type="Label" parent="VBoxContainer/bottom/controls/VBoxContainer" groups=[
+[node name="distance_score" type="Label" parent="VBoxContainer/bottom_margin/bottom/controls/VBoxContainer" groups=[
 "gui_label",
 ]]
 margin_top = 28.0
@@ -244,3 +267,16 @@ custom_fonts/font = ExtResource( 5 )
 text = "000000"
 align = 2
 valign = 2
+
+[node name="boost_button" type="Button" parent="." groups=[
+"boost_button",
+]]
+margin_right = 511.0
+margin_bottom = 287.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 1 )

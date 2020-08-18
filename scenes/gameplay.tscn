@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/prefabs/gui/gameplay_menu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/prefabs/al-pinball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/debug.gd" type="Script" id=3]
 [ext_resource path="res://scenes/prefabs/gui.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/prefabs/shaders/blur.tres" type="Material" id=5]
-[ext_resource path="res://sprites/backgrounds/Clouds far.png" type="Texture" id=6]
-[ext_resource path="res://sprites/backgrounds/Clouds close.png" type="Texture" id=7]
-[ext_resource path="res://sprites/backgrounds/Clouds mid.png" type="Texture" id=8]
+[ext_resource path="res://sprites/level-background.png" type="Texture" id=6]
+[ext_resource path="res://sprites/arcade-room-middle.png" type="Texture" id=7]
+[ext_resource path="res://sprites/arcade-room-machines.png" type="Texture" id=8]
+[ext_resource path="res://scenes/prefabs/gui/end_run_menu.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -19,6 +20,21 @@ custom_defines = ""
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+void fragment() {
+
+}
+
+void vertex() {
+
+}"
+custom_defines = ""
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 
 [node name="gameplay_stage" type="Node2D"]
 material = SubResource( 2 )
@@ -42,44 +58,54 @@ __meta__ = {
 [node name="GUI" parent="gui_canvas" instance=ExtResource( 4 )]
 pause_mode = 2
 
+[node name="end_run_menu" parent="gui_canvas" groups=[
+"end_run_gui",
+] instance=ExtResource( 9 )]
+margin_right = 512.0
+margin_bottom = 290.0
+
 [node name="gameplay_menu" parent="gui_canvas" instance=ExtResource( 1 )]
 pause_mode = 2
 visible = false
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 0, -20 )
+[node name="back" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, -170 )
 z_index = -1
-motion_scale = Vector2( 2, 2 )
-motion_mirroring = Vector2( 960, 0 )
+motion_scale = Vector2( 0.05, 0.1 )
+motion_mirroring = Vector2( 800, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 0, -50 )
-scale = Vector2( 3, 3 )
+[node name="background" type="Sprite" parent="ParallaxBackground/back"]
+material = SubResource( 4 )
+scale = Vector2( 2.5, 2.5 )
 z_index = -2
 texture = ExtResource( 6 )
 centered = false
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 0, -20 )
-motion_scale = Vector2( 2, 2 )
-motion_mirroring = Vector2( 960, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2( 0, -50 )
-scale = Vector2( 3, 3 )
-z_index = -1
-texture = ExtResource( 8 )
-centered = false
-
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 0, -20 )
-motion_scale = Vector2( 2, 2 )
+visible = false
+z_index = -1
+motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 960, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 0, -50 )
 scale = Vector2( 3, 3 )
+z_index = -2
+texture = ExtResource( 8 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+z_index = -1
+motion_scale = Vector2( 0.25, 0.1 )
+motion_mirroring = Vector2( 960, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 0, -50 )
+scale = Vector2( 3, 3 )
+z_index = -2
 texture = ExtResource( 7 )
 centered = false
