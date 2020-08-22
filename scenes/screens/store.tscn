@@ -1,0 +1,159 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://sprites/back-arrow-black.png" type="Texture" id=1]
+[ext_resource path="res://scripts/store.gd" type="Script" id=2]
+[ext_resource path="res://sprites/select-arrow-black.png" type="Texture" id=3]
+[ext_resource path="res://sprites/token.png" type="Texture" id=4]
+[ext_resource path="res://fonts/leahFat.tres" type="DynamicFont" id=5]
+[ext_resource path="res://sprites/select-arrow-black-right.png" type="Texture" id=6]
+[ext_resource path="res://sprites/skins/default.png" type="Texture" id=7]
+
+[node name="store" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="canvas" type="CanvasLayer" parent="."]
+
+[node name="background" type="ColorRect" parent="canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="MarginContainer" parent="canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="canvas/container"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 492.0
+margin_bottom = 268.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="canvas/container/VBoxContainer"]
+margin_right = 472.0
+margin_bottom = 196.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="left" type="TextureButton" parent="canvas/container/VBoxContainer/HBoxContainer2"]
+margin_top = 74.0
+margin_right = 48.0
+margin_bottom = 122.0
+size_flags_vertical = 4
+texture_normal = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="canvas/container/VBoxContainer/HBoxContainer2"]
+margin_left = 52.0
+margin_right = 420.0
+margin_bottom = 196.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer"]
+margin_right = 368.0
+margin_bottom = 196.0
+
+[node name="MarginContainer" type="MarginContainer" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+margin_right = 368.0
+margin_bottom = 62.0
+size_flags_vertical = 3
+
+[node name="skin-name" type="Label" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer"]
+margin_left = 152.0
+margin_top = 16.0
+margin_right = 216.0
+margin_bottom = 46.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "NAME"
+
+[node name="MarginContainer2" type="MarginContainer" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+margin_left = 184.0
+margin_top = 66.0
+margin_right = 184.0
+margin_bottom = 128.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="skin-preview" type="Sprite" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer2"]
+position = Vector2( 0, 42 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+
+[node name="MarginContainer3" type="MarginContainer" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+margin_top = 132.0
+margin_right = 368.0
+margin_bottom = 196.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer3"]
+margin_right = 368.0
+margin_bottom = 64.0
+
+[node name="TextureButton" type="TextureButton" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+margin_bottom = 64.0
+
+[node name="skin-locked" type="Sprite" parent="canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+
+[node name="right" type="TextureButton" parent="canvas/container/VBoxContainer/HBoxContainer2"]
+margin_left = 424.0
+margin_top = 74.0
+margin_right = 472.0
+margin_bottom = 122.0
+size_flags_vertical = 4
+texture_normal = ExtResource( 6 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="canvas/container/VBoxContainer"]
+margin_top = 200.0
+margin_right = 472.0
+margin_bottom = 248.0
+size_flags_horizontal = 3
+
+[node name="back-button" type="TextureButton" parent="canvas/container/VBoxContainer/HBoxContainer"]
+margin_right = 48.0
+margin_bottom = 48.0
+texture_normal = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="canvas/container/VBoxContainer/HBoxContainer"]
+margin_left = 52.0
+margin_right = 260.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="canvas/container/VBoxContainer/HBoxContainer"]
+margin_left = 420.0
+margin_top = 18.0
+margin_right = 472.0
+margin_bottom = 48.0
+size_flags_horizontal = 10
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="canvas/container/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Sprite" type="Sprite" parent="canvas/container/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer"]
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( -30, 2 )
+
+[node name="coin-amount" type="Label" parent="canvas/container/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_left = 4.0
+margin_right = 52.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "000"

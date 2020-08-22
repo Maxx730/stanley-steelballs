@@ -36,7 +36,8 @@ var QUIT_BUTTON = null
 var TAP_BOOST = null
 var BOOST_BTN = null
 var END_RUN_GUI = null
-
+var TRY_AGAIN = null
+var MAIN_MENU = null
 
 #DEBUG ELS
 var GRAVITY_LABEL = null
@@ -50,15 +51,21 @@ var ZOOM_OUT = null
 #Scenes loaded here
 var RAMPS = []
 
+#load util methods
+const UTIL = preload("res://scripts/util.gd")
+var PROGRESS = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	PROGRESS = UTIL.load_data()
+	
 	#creates a new seed for each new game
 	randomize()
 	
 	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-1.tscn'))
-	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-2.tscn'))
+	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-10.tscn'))
 	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-3.tscn'))
-	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-4.tscn'))
+	RAMPS.append(load('res://scenes/prefabs/platforms/ramp-11.tscn'))
 	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-6.tscn'))
 	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-7.tscn'))
 	#RAMPS.append(load('res://scenes/prefabs/platforms/ramp-8.tscn'))
@@ -95,6 +102,14 @@ func _ready():
 			QUIT_BUTTON.connect('pressed', self, '_load_main')
 			
 	
+	var try_again = get_tree().get_nodes_in_group('try_again')
+	if try_again:
+		TRY_AGAIN = try_again[0]
+		TRY_AGAIN.connect('pressed', self, '_reset_pinball')
+	
+	MAIN_MENU = get_tree().get_nodes_in_group('main_menu')[0]
+	MAIN_MENU.connect('pressed', self, '_main_menu')
+	
 	#get the power meter
 	var meters = get_tree().get_nodes_in_group('power_bar')
 	if meters:
@@ -102,20 +117,7 @@ func _ready():
 	
 	PAUSE_SHADER = get_parent().get_node("gui_canvas/menu_shader")
 	
-	#Create the first platform and add it at 0,0 of the new game
-	RANDOM_NUM.randomize()
-	var start = RAMPS[0].instance()
-	start.position = Vector2(0,TRACK_Y)
-	add_child(start)
-	TRACK_AMOUNT += 1
-	_get_platform_width()
-	
-	_add_platform()
-	_add_platform()
-	_add_platform()
-	_add_platform()
-	_add_platform()
-	_add_platform()
+	_generate_start()
 
 	#grab the player pinball here
 	PINBALL = get_parent().get_node("al")
@@ -168,7 +170,26 @@ func _process(delta):
 		
 		update()
 		_handle_inputs()
+
+func _generate_start():
+	#Create the first platform and add it at 0,0 of the new game
+	RANDOM_NUM.randomize()
+	var start = RAMPS[0].instance()
+	start.position = Vector2(0,TRACK_Y)
+	add_child(start)
+	TRACK_AMOUNT += 1
+	_get_platform_width()
 	
+	_add_platform()
+	_add_platform()
+	_add_platform()
+	_add_platform()
+	_add_platform()
+	_add_platform()
+	
+func _reset_start():
+	pass
+
 func _get_platform_width():
 	#grab the first platform that was just added
 	var platform = get_child(0)
@@ -193,11 +214,19 @@ func _reset_tracks():
 			pass
 		
 func _check_speed():
-	if PINBALL.VELOCITY.x < 0:
+	if PINBALL.VELOCITY.x < 1:
 		#PINBALL.global_position = Vector2(0, 0)
 		if END_RUN_GUI:
 			PINBALL.VELOCITY.x = 0
 			END_RUN_GUI.visible = true
+			if UTIL && PROGRESS:
+				UTIL.save_data(PROGRESS)
+
+func _reset_pinball():
+	if PINBALL && END_RUN_GUI:
+		PINBALL.global_position = Vector2(0, 0)
+		PINBALL.VELOCITY.x = PINBALL.MAX_SPEED
+		END_RUN_GUI.visible = false
 
 func _get_debug_gui():
 	var labels = get_tree().get_nodes_in_group('debug_label')
@@ -242,10 +271,6 @@ func _on_max_changed(value):
 	if MAX_SPEED_LABEL && PINBALL:
 		PINBALL.MAX_SPEED = value
 		MAX_SPEED_LABEL.text = 'MAX SPEED ::: ' + String(value)
-
-func _reset_pinball():
-	PINBALL.global_position = Vector2(0, 0)
-	PINBALL.VELOCITY.x = PINBALL.MAX_SPEED
 	
 func _zoom_in():
 	CAMERA.zoom = Vector2(CAMERA.zoom.x + 0.5, CAMERA.zoom.y + 0.5)
@@ -269,6 +294,8 @@ func _handle_inputs():
 func _add_coins(value):
 	COINS += value
 	COIN_LABEL.text = 'X ' + String(COINS)
+	if PROGRESS:
+		PROGRESS.coins += value
 
 func _load_main():
 	get_tree().change_scene('res://scenes/screens/start.tscn')
@@ -286,7 +313,9 @@ func _booster_exit(booster):
 
 func _boost_player():
 	if PINBALL:
-		PINBALL.VELOCITY.x += 100
-		PINBALL.VELOCITY.y -= 100
+		PINBALL.VELOCITY.x += 300
 		PINBALL.BOOST_PART.emitting = true
 		CURRENT_BOOSTER.queue_free()
+
+func _main_menu():
+	Global._goto_scene('res://scenes/screens/start.tscn')

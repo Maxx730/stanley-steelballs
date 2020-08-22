@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="simple-platformer"
-run/main_scene="res://scenes/screens/start.tscn"
+run/main_scene="res://scenes/global.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://scripts/global.gd"
 
 [display]
 

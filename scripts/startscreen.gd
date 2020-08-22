@@ -2,35 +2,55 @@ extends Node
 
 var START_BUTTON = null
 var SETTINGS_BUTTON = null
+var STORE_BUTTON = null
 var PLAYER = null
 
+var TITLE_BACKGROUND = null
+var BACKGROUND = null
+
+var FADE_IN_SECONDS = 0.5
+var FADE_TIME = 0
+var FADE_OFFSET = 0.0
+
+var SLOW_FADE_TIME = 1.0
+var SLOW_TIME = 0
+var SLOW_OFFSET = 1.5
+
+var PROGRESS = null
+var COIN_COUNT = null
+
+#load util methods
+const UTIL = preload("res://scripts/util.gd")
+
 func _ready():
-	var buttons = get_tree().get_nodes_in_group('startscreen_button')
-	if buttons:
-		START_BUTTON = buttons[0]
-		SETTINGS_BUTTON = buttons[1]
+	if UTIL:
+		PROGRESS = Global.UTIL.load_data()
+		COIN_COUNT = get_node("canvas/startmenu/HBoxContainer/HBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/coin_count")
+		COIN_COUNT.text = String(PROGRESS.coins) + '  '
 		
-		if START_BUTTON:
-			START_BUTTON.connect('pressed', self, '_start_clicked')
+	BACKGROUND = get_node("canvas/background_shader").get_material()
+	
+	START_BUTTON = get_node("canvas/startmenu/HBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/play-button");
+	SETTINGS_BUTTON = get_node("canvas").get_node("startmenu/HBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/settings-button")
+	STORE_BUTTON = get_node("canvas/startmenu/HBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/store-button")
+		
+	if START_BUTTON:
+		START_BUTTON.connect('pressed', self, '_start_clicked')
 			
-		if SETTINGS_BUTTON:
-			SETTINGS_BUTTON.connect('pressed', self, '_settings_clicked')
-			
-		#turn the player camera off on main screen
-		PLAYER = get_node("al")
-		PLAYER.get_node("camera").current = false
-		PLAYER.MAX_SPEED = 500
-		PLAYER.VELOCITY.x = 500
+	if SETTINGS_BUTTON:
+		SETTINGS_BUTTON.connect('pressed', self, '_settings_clicked')
+	
+	if STORE_BUTTON:
+		STORE_BUTTON.connect('pressed', self, '_store_clicked')
 
 func _process(delta):
-	_check_pinball_pos()
+	BACKGROUND.set_shader_param('grad_offset', .72)
 
 func _start_clicked():
-	get_tree().change_scene('res://scenes/gameplay.tscn')
+	Global._goto_scene('res://scenes/gameplay.tscn')
 	
 func _settings_clicked():
-	print('settings_clicked')
-
-func _check_pinball_pos():
-	if PLAYER.global_position.x > 800:
-		PLAYER.global_position = Vector2(2, 247)
+	Global._goto_scene('res://scenes/screens/settings.tscn')
+	
+func _store_clicked():
+	Global._goto_scene('res://scenes/screens/store.tscn')

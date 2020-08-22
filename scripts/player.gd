@@ -72,7 +72,7 @@ func _decelerate(delta, ground):
 		else:
 			VELOCITY.x -= (MAX_SPEED / (ACCEL * 3)) * delta
 	else:
-		pass
+		print('not decell')
 
 func _accelerate(delta):
 	VELOCITY.x += 100 * delta
