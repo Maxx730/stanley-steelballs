@@ -4,6 +4,7 @@
 [ext_resource path="res://sprites/hill-track-front.png" type="Texture" id=2]
 
 [node name="ramp-1" type="StaticBody2D" groups=[
+"ramp",
 "single_ramp",
 ]]
 
@@ -17,5 +18,5 @@ z_index = 3
 texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0.235962, 1.65178 )
-polygon = PoolVector2Array( -149.802, 12.5241, -120.778, 12.7601, -26.8624, -11.3087, 29.5341, -10.8368, 122.724, 13.232, 150.097, 12.9961, 150.097, 36.8289, -149.417, 34.9412 )
+position = Vector2( 0.235962, 2.65178 )
+polygon = PoolVector2Array( -149.33, 12.6829, -120.778, 12.7601, -26.8624, -11.3087, 29.5341, -10.8368, 122.724, 13.232, 150.097, 12.9961, 150.097, 36.8289, -149.417, 34.9412 )

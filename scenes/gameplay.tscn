@@ -18,7 +18,7 @@ custom_defines = ""
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -26,8 +26,8 @@ void fragment() {
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 
 [node name="gameplay_stage" type="Node2D"]
 material = SubResource( 2 )
@@ -54,6 +54,7 @@ pause_mode = 2
 [node name="end_run_menu" parent="gui_canvas" groups=[
 "end_run_gui",
 ] instance=ExtResource( 9 )]
+visible = false
 margin_right = 512.0
 margin_bottom = 290.0
 
@@ -63,7 +64,7 @@ visible = false
 
 [node name="distortion" type="ColorRect" parent="gui_canvas"]
 visible = false
-material = SubResource( 6 )
+material = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {

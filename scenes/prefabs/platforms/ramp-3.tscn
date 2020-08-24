@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://sprites/track-front .png" type="Texture" id=1]
-[ext_resource path="res://scenes/prefabs/effector/spring.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/prefabs/obstacles/crate.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/track-back.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -22,5 +22,11 @@ shape = SubResource( 1 )
 [node name="back" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
-[node name="spring" parent="." instance=ExtResource( 2 )]
-position = Vector2( -47.8995, -17.9031 )
+[node name="crate" parent="." instance=ExtResource( 2 )]
+position = Vector2( -45.0643, -14.4098 )
+
+[node name="crate2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2.18272, -15.0397 )
+
+[node name="crate3" parent="." instance=ExtResource( 2 )]
+position = Vector2( -23.6456, -59.137 )

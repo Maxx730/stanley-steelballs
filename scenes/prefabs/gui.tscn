@@ -33,7 +33,6 @@ margin_right = 511.0
 margin_bottom = 287.0
 
 [node name="info" type="VBoxContainer" parent="VBoxContainer"]
-visible = false
 margin_right = 511.0
 margin_bottom = 125.0
 custom_constants/separation = 15
@@ -177,6 +176,7 @@ custom_fonts/font = ExtResource( 5 )
 text = "DISTANCE ::: 000"
 
 [node name="middle" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 129.0
 margin_right = 511.0
 margin_bottom = 223.0
 size_flags_vertical = 3
@@ -213,6 +213,7 @@ size_flags_stretch_ratio = 0.0
 ]]
 margin_right = 32.0
 margin_bottom = 32.0
+value = 100.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 2 )
 

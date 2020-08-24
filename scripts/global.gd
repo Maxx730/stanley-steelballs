@@ -8,6 +8,9 @@ const UTIL = preload("res://scripts/util.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print('LOADING GLOBAL')
+	#start by reading in data, if it does not exist then save new data
+	var saved = UTIL.load_data()
+	UTIL.save_data(saved)
 	CURRENT_SCENE = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 	_goto_scene("res://scenes/screens/start.tscn")
 

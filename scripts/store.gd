@@ -19,11 +19,11 @@ func _ready():
 	BACK_BUTTON = get_node("canvas/container/VBoxContainer/HBoxContainer/back-button")
 	BACK_BUTTON.connect('pressed', self, '_load_main')
 	
-	LEFT = get_node("canvas/container/VBoxContainer/HBoxContainer2/left")
-	RIGHT = get_node("canvas/container/VBoxContainer/HBoxContainer2/right")
+	LEFT = get_node("canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/left")
+	RIGHT = get_node("canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/right")
 	
-	PREVIEW = get_node("canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer2/skin-preview")
-	NAME = get_node("canvas/container/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/skin-name")
+	PREVIEW = get_node("canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer/MarginContainer2/skin-preview")
+	NAME = get_node("canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer/MarginContainer/skin-name")
 	COINS = get_node("canvas/container/VBoxContainer/HBoxContainer/HBoxContainer/coin-amount")
 	
 	COINS.text = String(Global.UTIL.load_data().coins)

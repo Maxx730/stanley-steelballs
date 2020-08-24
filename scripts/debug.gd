@@ -18,8 +18,7 @@ var COINS = 0
 var CURRENT_BOOSTER = null
 
 #power meter
-var CURRENT_VAL = 0
-var MAX_VAL = 100
+var MAX_VAL = 300
 var POWER_DIR_UP = true
 
 #GUI OBJECTS
@@ -38,6 +37,8 @@ var BOOST_BTN = null
 var END_RUN_GUI = null
 var TRY_AGAIN = null
 var MAIN_MENU = null
+var END_COIN_COUNT = null
+var END_DISTANCE_COUNT = null
 
 #DEBUG ELS
 var GRAVITY_LABEL = null
@@ -114,6 +115,8 @@ func _ready():
 	var meters = get_tree().get_nodes_in_group('power_bar')
 	if meters:
 		POWER_METER = meters[0]
+		POWER_METER.max_value = MAX_VAL
+		POWER_METER.value = MAX_VAL
 	
 	PAUSE_SHADER = get_parent().get_node("gui_canvas/menu_shader")
 	
@@ -138,23 +141,15 @@ func _draw():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if PINBALL:
-		_check_speed()
+		#_check_speed()
 		_determine_platform_location()
 		
 		SPEED_LABEL.text = String(floor(PINBALL.VELOCITY.x / 10)) + 'MPH'
 		X_LABEL.text = 'X :: (' + String(floor(PINBALL.global_position.x)) + ')'
 		Y_LABEL.text = 'Y :: (' + String(floor(PINBALL.global_position.y)) + ')'
 		
-		if POWER_METER:
-			if CURRENT_VAL <= MAX_VAL && POWER_DIR_UP:
-				CURRENT_VAL += 1
-			elif CURRENT_VAL == 0:
-				POWER_DIR_UP = true
-			else:
-				POWER_DIR_UP = false
-				CURRENT_VAL -= 1
-			
-			POWER_METER.value = CURRENT_VAL
+		if POWER_METER && Input.is_action_pressed("ui_right"):
+			POWER_METER.value -= 100 * delta
 		
 		if TRACK_AMOUNT - ACTIVE_TRACK < TRACK_THRESHHOLD:
 			_add_platform()
@@ -219,6 +214,17 @@ func _check_speed():
 		if END_RUN_GUI:
 			PINBALL.VELOCITY.x = 0
 			END_RUN_GUI.visible = true
+			# set ui elements for the end here.
+			if !END_COIN_COUNT && !END_DISTANCE_COUNT:
+				END_COIN_COUNT = get_tree().get_nodes_in_group('end-coin-count')[0]
+				END_DISTANCE_COUNT = get_tree().get_nodes_in_group('end-distance-count')[0]
+				
+				END_DISTANCE_COUNT.text = String(floor(SCORE))
+				END_COIN_COUNT.text = String(COINS)
+				
+				if END_DISTANCE_COUNT.has_method('_start_count_up'):
+					END_DISTANCE_COUNT._start_count_up(SCORE, 2)
+				
 			if UTIL && PROGRESS:
 				UTIL.save_data(PROGRESS)
 

@@ -46,19 +46,22 @@ static func load_data():
 	var file = File.new()
 	if file.file_exists('user://save_data.data'):
 		file.open('user://save_data.data', File.READ)
-		return parse_json(file.get_line())
+		var json = parse_json(file.get_line())
+		return json
 	else:
+		#Default saved values if this is the first time someone has played the game.
 		return {
 			'coins': 0,
-			'skin': 0
+			'skin': 0,
+			'upgrades': {
+				'max_speed': 0,
+				'bounce': 0,
+				'accel': 0
+			}
 		}
 
 static func save_data(data):
 	var file = File.new()
-	var SAVE_STRUCTURE = {
-		'coins': 0
-	}
-	
 	file.open('user://save_data.data', File.WRITE)
 	file.store_line(to_json(data))
 	file.close()
