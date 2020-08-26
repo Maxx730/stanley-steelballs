@@ -7,9 +7,12 @@
 extents = Vector2( 20.8866, 21.0164 )
 
 [node name="crate" type="RigidBody2D" groups=[
+"destructable",
 "obstacle",
 ]]
-mass = 0.306122
+z_index = 2
+mass = 0.612245
+gravity_scale = 9.8
 script = ExtResource( 2 )
 
 [node name="crate" type="Sprite" parent="."]

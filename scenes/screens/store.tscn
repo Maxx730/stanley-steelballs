@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://sprites/back-arrow-black.png" type="Texture" id=1]
 [ext_resource path="res://scripts/store.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://sprites/black-progress-full.png" type="Texture" id=9]
 [ext_resource path="res://fonts/leahFat-medium.tres" type="DynamicFont" id=10]
 [ext_resource path="res://sprites/black-button-tiny.png" type="Texture" id=11]
+[ext_resource path="res://sprites/tab-left-black-focused.png" type="Texture" id=12]
 
 [node name="store" type="Node2D"]
 script = ExtResource( 2 )
@@ -77,24 +78,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer"]
+[node name="tab-buttons" type="HBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer"]
 margin_right = 452.0
 margin_bottom = 28.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="upgrades-button" type="Button" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/HBoxContainer"]
-margin_right = 224.0
+[node name="TextureButton" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/tab-buttons"]
 margin_bottom = 28.0
-size_flags_horizontal = 3
-text = "UPGRADES"
-
-[node name="skins-button" type="Button" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/HBoxContainer"]
-margin_left = 228.0
-margin_right = 452.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-text = "SKINS"
+texture_focused = ExtResource( 12 )
 
 [node name="content-container" type="VBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer"]
 margin_top = 79.0

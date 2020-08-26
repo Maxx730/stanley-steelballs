@@ -148,8 +148,8 @@ func _process(delta):
 		X_LABEL.text = 'X :: (' + String(floor(PINBALL.global_position.x)) + ')'
 		Y_LABEL.text = 'Y :: (' + String(floor(PINBALL.global_position.y)) + ')'
 		
-		if POWER_METER && Input.is_action_pressed("ui_right"):
-			POWER_METER.value -= 100 * delta
+		if PINBALL && PINBALL.POWER > 0 && Input.is_action_pressed("ui_right"):
+			POWER_METER.value = PINBALL.POWER
 		
 		if TRACK_AMOUNT - ACTIVE_TRACK < TRACK_THRESHHOLD:
 			_add_platform()

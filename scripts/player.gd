@@ -6,6 +6,8 @@ var ACCEL = 10
 var GRAVITY = 9.8
 var MASS = 45
 
+var POWER = 300
+var SPRITE = null
 
 var YVEL = 0
 var JUMP_POWER = -300
@@ -28,41 +30,35 @@ signal _on_booster_exit(booster)
 var VELOCITY = Vector2(0,0)
 
 func _ready():
-	$blink.play("al-blink")
-	
+	SPRITE = get_node("base/sprite")
 	SPEED_PARTICLES = get_node("movement _particle")
 	SLOWMO_PART = get_node("slowmo_particle")
 	BOOST_PART = get_node("boost-particle")
 	
 	SLOWMO_PART.emitting = false
+	SPEED_PARTICLES.emitting = false
 	
-	if SPEED_PARTICLES:
-		SPEED_PARTICLES.emitting = false
+	_load_data()
 
 func _physics_process(delta):
+	if VELOCITY.x > 0:
+		#rotate the sprite based on the speed of the player
+		SPRITE.get_parent().rotate(VELOCITY.x * 0.0005)
+	
 	_handle_input()
 	_toggle_particles()
-	
-	#move and collide, bounce of certain objects vs 
-	#var collision = move_and_collide(VELOCITY * delta)
-	#if collision && collision.collider.is_in_group('bumper'):
-		#VELOCITY = VELOCITY.bounce(collision.normal) / BOUNCE_DAMPENING
-		#emit_signal("_on_points_gained", 1000)
-	#elif collision:
-		#VELOCITY = VELOCITY.slide(collision.normal)
-		#if BOOSTING == false:
-			#_decelerate(delta, true)
-	#else:
-		#_decelerate(delta, false)
-		#_apply_gravity()
 	
 	# apply the gravity and increase veocity if right arrow is down
 	# only apply gravity if the y value is above a certain amount
 	_apply_gravity()
 	
-	if Input.is_action_pressed("ui_right") && VELOCITY.x < MAX_SPEED:
-		#increase the velocity on arrow now but will change to on touch later
-		VELOCITY.x += 10
+	#main touch control the player uses to move forward
+	if Input.is_action_pressed("ui_right"):
+		if VELOCITY.x < MAX_SPEED && POWER > 0:
+			#increase the velocity on arrow now but will change to on touch later
+			VELOCITY.x += 10
+		
+		POWER -= 100 * delta
 	else:
 		_decelerate(delta, false)
 		if VELOCITY.x < 0:
@@ -77,13 +73,17 @@ func _physics_process(delta):
 		if collision.collider.is_in_group('obstacle'):
 			# push factor would be the weight of the players chosen skin
 			if collision.normal.x < 0:
-				collision.collider.apply_central_impulse((-collision.normal * MASS * (VELOCITY.x) / 100) / collision.collider.weight)
-				VELOCITY.x -= 10
+				collision.collider.apply_central_impulse((-collision.normal * MASS * (VELOCITY.x) / 50) / collision.collider.weight)
+				#if the player hits the obstacle at a certain speed, destroy it
+				if  collision.collider.is_in_group('destructable'):
+					VELOCITY.x -= 5
+					if (VELOCITY.x / 10) > 40:
+						_add_fragment(collision)
+						_add_fragment(collision)
+						_add_fragment(collision)
 		elif collision.collider.is_in_group('ramp'):
 			VELOCITY.y -= 3 * GRAVITY
-		
-	if BOOSTING && BOOST_TIMER < BOOST_TIMEOUT:
-		BOOST_TIMER += delta
+
 
 func _handle_input():
 	if Input.is_action_just_pressed("ui_select") && ON_FLOOR:
@@ -100,8 +100,6 @@ func _decelerate(delta, ground):
 			VELOCITY.x -= (MAX_SPEED / ACCEL) * delta
 		else:
 			VELOCITY.x -= (MAX_SPEED / (ACCEL * 3)) * delta
-	else:
-		pass
 
 func _accelerate(delta):
 	VELOCITY.x += 100 * delta
@@ -111,3 +109,23 @@ func _toggle_particles():
 		SPEED_PARTICLES.emitting = true
 	else:
 		SPEED_PARTICLES.emitting = false
+
+func _load_data():
+	#load player data
+	var data = Global.UTIL.load_data()
+	var img = load(Global.UTIL.SKINS[8].texture)
+	
+	#set skin variables here
+	#MASS = MASS * Global.UTIL.SKINS[4].weight
+	#GRAVITY = GRAVITY * Global.UTIL.SKINS[4].weight
+	
+	#update skin based on data
+	SPRITE.set_texture(img)
+
+func _add_fragment(collision):
+	var col = collision.collider
+	var frag = col.FRAGMENT.instance()
+	col.queue_free()
+	frag.global_position = collision.position
+	frag.apply_central_impulse(Vector2(0, -200))
+	get_parent().add_child(frag)

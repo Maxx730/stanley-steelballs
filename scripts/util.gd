@@ -4,42 +4,56 @@ const SKINS = [{
 	"name": "Pinball",
 	"texture": "res://sprites/skins/default.png",
 	"selected": true,
-	"unlocked": true
+	"unlocked": true,
+	"weight": 1
 },{
 	"name": "Tennis Ball",
 	"texture": "res://sprites/skins/tennisball.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": .5
 },{
 	"name": "Basketball",
 	"texture": "res://sprites/skins/basketball.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": .6
 },{
 	"name": "Stone",
 	"texture": "res://sprites/skins/stone.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": 6
 },{
 	"name": "Peppermint",
 	"texture": "res://sprites/skins/mint.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": .25
 },{
 	"name": "8 Ball",
 	"texture": "res://sprites/skins/8ball.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": 2
 },{
 	"name": "Orange",
 	"texture": "res://sprites/skins/orange.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": .8
 },{
 	"name": "Big E",
 	"texture": "res://sprites/skins/big-ed.png",
 	"selected": false,
-	"unlocked": false
+	"unlocked": false,
+	"weight": 10
+},{
+	"name": "KRoll",
+	"texture": "res://sprites/skins/kroll.png",
+	"selected": false,
+	"unlocked": false,
+	"weight": 10
 }]
 
 static func load_data():
