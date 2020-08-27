@@ -1,4 +1,9 @@
 extends RigidBody2D
 
-func _physics_process(delta):
-	pass
+var DESPAWN_TIME = 4
+var TIME = 0
+
+func _process(delta):
+	TIME += delta
+	if TIME > DESPAWN_TIME:
+		self.queue_free()

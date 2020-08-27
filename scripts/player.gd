@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
 # Global Vars
-var MAX_SPEED = 500
+var MAX_SPEED = 750
 var ACCEL = 10
 var GRAVITY = 9.8
 var MASS = 45
 
-var POWER = 300
+var POWER = 500
 var SPRITE = null
 
 var YVEL = 0
@@ -30,6 +30,7 @@ signal _on_booster_exit(booster)
 var VELOCITY = Vector2(0,0)
 
 func _ready():
+	VELOCITY.x = MAX_SPEED
 	SPRITE = get_node("base/sprite")
 	SPEED_PARTICLES = get_node("movement _particle")
 	SLOWMO_PART = get_node("slowmo_particle")
@@ -52,18 +53,6 @@ func _physics_process(delta):
 	# only apply gravity if the y value is above a certain amount
 	_apply_gravity()
 	
-	#main touch control the player uses to move forward
-	if Input.is_action_pressed("ui_right"):
-		if VELOCITY.x < MAX_SPEED && POWER > 0:
-			#increase the velocity on arrow now but will change to on touch later
-			VELOCITY.x += 10
-		
-		POWER -= 100 * delta
-	else:
-		_decelerate(delta, false)
-		if VELOCITY.x < 0:
-			VELOCITY.x = 0
-	
 	move_and_slide(VELOCITY,Vector2.UP,
 					false, 4, PI/4, false)
 					
@@ -77,13 +66,28 @@ func _physics_process(delta):
 				#if the player hits the obstacle at a certain speed, destroy it
 				if  collision.collider.is_in_group('destructable'):
 					VELOCITY.x -= 5
-					if (VELOCITY.x / 10) > 40:
+					if ((VELOCITY.x / 10) / MASS) > 1:
 						_add_fragment(collision)
 						_add_fragment(collision)
 						_add_fragment(collision)
+						collision.collider.queue_free()
+				elif collision.collider.is_in_group('fragment'):
+					VELOCITY.x -= 1
 		elif collision.collider.is_in_group('ramp'):
 			VELOCITY.y -= 3 * GRAVITY
 
+
+func _input(event):
+	#main touch control the player uses to move forward
+	if event is InputEventScreenTouch:
+		if VELOCITY.x < MAX_SPEED && POWER > 0:
+			#increase the velocity on arrow now but will change to on touch later
+			VELOCITY.x += 10
+	else:
+		#decelerate(delta, false)
+		if VELOCITY.x < 0:
+				VELOCITY.x = 0
+		
 
 func _handle_input():
 	if Input.is_action_just_pressed("ui_select") && ON_FLOOR:
@@ -113,7 +117,7 @@ func _toggle_particles():
 func _load_data():
 	#load player data
 	var data = Global.UTIL.load_data()
-	var img = load(Global.UTIL.SKINS[8].texture)
+	var img = load(Global.UTIL.SKINS[data.skin].texture)
 	
 	#set skin variables here
 	#MASS = MASS * Global.UTIL.SKINS[4].weight
@@ -125,7 +129,6 @@ func _load_data():
 func _add_fragment(collision):
 	var col = collision.collider
 	var frag = col.FRAGMENT.instance()
-	col.queue_free()
 	frag.global_position = collision.position
 	frag.apply_central_impulse(Vector2(0, -200))
 	get_parent().add_child(frag)

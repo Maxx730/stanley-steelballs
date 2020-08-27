@@ -7,6 +7,7 @@
 extents = Vector2( 8.05158, 7.95886 )
 
 [node name="fragment" type="RigidBody2D" groups=[
+"fragment",
 "obstacle",
 ]]
 mass = 0.3

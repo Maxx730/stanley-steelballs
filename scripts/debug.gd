@@ -39,6 +39,7 @@ var TRY_AGAIN = null
 var MAIN_MENU = null
 var END_COIN_COUNT = null
 var END_DISTANCE_COUNT = null
+var TOTAL_COINS = null
 
 #DEBUG ELS
 var GRAVITY_LABEL = null
@@ -141,14 +142,14 @@ func _draw():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if PINBALL:
-		#_check_speed()
+		_check_speed()
 		_determine_platform_location()
 		
 		SPEED_LABEL.text = String(floor(PINBALL.VELOCITY.x / 10)) + 'MPH'
 		X_LABEL.text = 'X :: (' + String(floor(PINBALL.global_position.x)) + ')'
 		Y_LABEL.text = 'Y :: (' + String(floor(PINBALL.global_position.y)) + ')'
 		
-		if PINBALL && PINBALL.POWER > 0 && Input.is_action_pressed("ui_right"):
+		if PINBALL && PINBALL.POWER > 0 && Input.is_action_pressed("ui_select"):
 			POWER_METER.value = PINBALL.POWER
 		
 		if TRACK_AMOUNT - ACTIVE_TRACK < TRACK_THRESHHOLD:
@@ -218,9 +219,11 @@ func _check_speed():
 			if !END_COIN_COUNT && !END_DISTANCE_COUNT:
 				END_COIN_COUNT = get_tree().get_nodes_in_group('end-coin-count')[0]
 				END_DISTANCE_COUNT = get_tree().get_nodes_in_group('end-distance-count')[0]
+				TOTAL_COINS = get_tree().get_nodes_in_group('total-coin-count')[0]
 				
 				END_DISTANCE_COUNT.text = String(floor(SCORE))
 				END_COIN_COUNT.text = String(COINS)
+				TOTAL_COINS.text = String(PROGRESS.coins)
 				
 				if END_DISTANCE_COUNT.has_method('_start_count_up'):
 					END_DISTANCE_COUNT._start_count_up(SCORE, 2)
@@ -294,9 +297,8 @@ func _toggle_pause():
 		get_tree().paused = !get_tree().paused
 
 func _handle_inputs():
-	if Input.is_action_just_pressed("ui_end"):
-		_toggle_pause()
-
+	pass
+		
 func _add_coins(value):
 	COINS += value
 	COIN_LABEL.text = 'X ' + String(COINS)

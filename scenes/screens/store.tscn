@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://sprites/back-arrow-black.png" type="Texture" id=1]
 [ext_resource path="res://scripts/store.gd" type="Script" id=2]
@@ -11,7 +11,10 @@
 [ext_resource path="res://sprites/black-progress-full.png" type="Texture" id=9]
 [ext_resource path="res://fonts/leahFat-medium.tres" type="DynamicFont" id=10]
 [ext_resource path="res://sprites/black-button-tiny.png" type="Texture" id=11]
-[ext_resource path="res://sprites/tab-left-black-focused.png" type="Texture" id=12]
+[ext_resource path="res://sprites/skins-tab-gray.png" type="Texture" id=12]
+[ext_resource path="res://sprites/upgrades-tab-black.png" type="Texture" id=13]
+[ext_resource path="res://sprites/skins-tab-black.png" type="Texture" id=14]
+[ext_resource path="res://sprites/upgrades-tab-gray.png" type="Texture" id=15]
 
 [node name="store" type="Node2D"]
 script = ExtResource( 2 )
@@ -79,64 +82,79 @@ __meta__ = {
 }
 
 [node name="tab-buttons" type="HBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer"]
-margin_right = 452.0
-margin_bottom = 28.0
+margin_left = 26.0
+margin_right = 426.0
+margin_bottom = 48.0
+size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+custom_constants/separation = 0
 
-[node name="TextureButton" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/tab-buttons"]
-margin_bottom = 28.0
-texture_focused = ExtResource( 12 )
+[node name="upgrades-tab" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/tab-buttons"]
+margin_right = 200.0
+margin_bottom = 48.0
+size_flags_horizontal = 2
+texture_normal = ExtResource( 15 )
+texture_focused = ExtResource( 13 )
+
+[node name="skins-tab" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/tab-buttons"]
+margin_left = 200.0
+margin_right = 400.0
+margin_bottom = 48.0
+size_flags_horizontal = 2
+texture_normal = ExtResource( 12 )
+texture_focused = ExtResource( 14 )
 
 [node name="content-container" type="VBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer"]
-margin_top = 79.0
+margin_top = 52.0
 margin_right = 452.0
-margin_bottom = 129.0
-size_flags_vertical = 6
+margin_bottom = 176.0
+size_flags_vertical = 7
 
 [node name="skins-container" type="HBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container"]
-visible = false
-margin_right = 472.0
-margin_bottom = 48.0
+margin_right = 452.0
+margin_bottom = 124.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="left" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container"]
+margin_top = 38.0
 margin_right = 48.0
-margin_bottom = 48.0
+margin_bottom = 86.0
 size_flags_vertical = 4
 texture_normal = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container"]
 margin_left = 52.0
-margin_right = 420.0
-margin_bottom = 48.0
+margin_right = 400.0
+margin_bottom = 124.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer"]
-margin_right = 368.0
-margin_bottom = 48.0
+margin_right = 348.0
+margin_bottom = 124.0
 
 [node name="MarginContainer" type="MarginContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer"]
-margin_right = 368.0
-margin_bottom = 30.0
+margin_right = 348.0
+margin_bottom = 36.0
 size_flags_vertical = 3
 
 [node name="skin-name" type="Label" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer/MarginContainer"]
-margin_left = 152.0
-margin_right = 216.0
-margin_bottom = 30.0
+margin_left = 142.0
+margin_top = 3.0
+margin_right = 206.0
+margin_bottom = 33.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "NAME"
 
 [node name="MarginContainer2" type="MarginContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer"]
-margin_left = 184.0
-margin_top = 34.0
-margin_right = 184.0
-margin_bottom = 39.0
+margin_left = 174.0
+margin_top = 40.0
+margin_right = 174.0
+margin_bottom = 76.0
 size_flags_horizontal = 6
 size_flags_vertical = 3
 
@@ -146,30 +164,43 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 
 [node name="MarginContainer3" type="MarginContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer"]
-margin_top = 43.0
-margin_right = 368.0
-margin_bottom = 48.0
+margin_top = 80.0
+margin_right = 348.0
+margin_bottom = 116.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer/MarginContainer3"]
-margin_right = 368.0
-margin_bottom = 5.0
+margin_right = 348.0
+margin_bottom = 36.0
 
 [node name="TextureButton" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-margin_bottom = 5.0
+margin_bottom = 36.0
 
 [node name="skin-locked" type="Sprite" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 
+[node name="unlock-button" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 348.0
+margin_bottom = 120.0
+
+[node name="select-button" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container/MarginContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 348.0
+margin_bottom = 124.0
+
 [node name="right" type="TextureButton" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/skins-container"]
-margin_left = 424.0
-margin_right = 472.0
-margin_bottom = 48.0
+margin_left = 404.0
+margin_top = 38.0
+margin_right = 452.0
+margin_bottom = 86.0
 size_flags_vertical = 4
 texture_normal = ExtResource( 6 )
 
 [node name="upgrades-container" type="VBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container"]
+visible = false
+margin_top = 52.0
 margin_right = 452.0
-margin_bottom = 50.0
+margin_bottom = 102.0
 size_flags_vertical = 3
 
 [node name="stat-container" type="VBoxContainer" parent="canvas/container/VBoxContainer/NinePatchRect/MarginContainer2/MarginContainer/content-container/upgrades-container"]
